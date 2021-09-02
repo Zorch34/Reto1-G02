@@ -36,8 +36,13 @@ operación solicitada
 
 def printMenu():
     print("Bienvenido")
-    print("1- Cargar información en el catálogo")
-    print("2- ")
+    print("0- Cargar información en el catálogo")
+    print("1-Ejecutar requerimiento 1")
+    print("2-Ejecutar requerimiento 2")
+    print("3-Ejecutar requerimiento 3")
+    print("4-Ejecutar requerimiento 4")
+    print("5-Ejecutar requerimiento 5")
+    print("6-Ejecutar requerimiento 6")
 
 catalog = None
 
@@ -47,12 +52,20 @@ Menu principal
 while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
-    if int(inputs[0]) == 1:
+    if int(inputs[0]) == 0:
         print("Cargando información de los archivos ....")
-
-    elif int(inputs[0]) == 2:
-        pass
-
+    elif int(inputs[1]) == 1:
+        print("Ejecutando requerimiento 1 ...")
+    elif int(inputs[2]) == 2:
+        print("Ejecutando requerimiento 2 ...")
+    elif int(inputs[3]) == 3:
+        print("Ejecutando requerimiento 3 ...")
+    elif int(inputs[4]) == 4:
+        print("Ejecutando requerimiento 4 ...")
+    elif int(inputs[5]) == 5:
+        print("Ejecutando requerimiento 5 ...")
+    elif int(inputs[6]) == 6:
+        print("Ejecutando requerimiento 6 ...")
     else:
         sys.exit(0)
 sys.exit(0)

@@ -37,12 +37,48 @@ los mismos.
 
 # Construccion de modelos
 
+def newCatalog():
+   
+    catalog = {'artworks': None,
+               'artists': None,
+               }
+
+    catalog['artworks'] = lt.newList()
+    catalog['artists'] = lt.newList('SINGLE_LINKED',
+                                    cmpfunction=compareartists)
+    
+    return catalog
+
 # Funciones para agregar informacion al catalogo
+
+def addartwork(catalog, artwork):
+    lt.addLast(catalog['artworks'], artwork)
+    artists = artwork['artists'].split(",")
+    for artist in artists:
+        addartworkartist(catalog, artist.strip(), artwork)
+
+def addartworkartist(catalog, authorname, artwork):
+    artists = catalog['artists']
+    posartist = lt.isPresent(artists, authorname)
+    if posartist > 0:
+        artist = lt.getElement(artists, posartist)
+    else:
+        artist = newartist(authorname)
+        lt.addLast(artists, artist)
+    lt.addLast(artist['artworks'], artwork)
 
 # Funciones para creacion de datos
 
+def newartist(name):
+    artists = {'name': "", "artworks": None}
+    artists['name'] = name
+    artists['artworks'] = lt.newList('SINGLE_LINKED')
+    return artists
 # Funciones de consulta
 
 # Funciones utilizadas para comparar elementos dentro de una lista
-
+def compareartists(authorname1, artists):
+    if (authorname1.lower() in artists['name'].lower()):
+        return 0
+    return -1
 # Funciones de ordenamiento
