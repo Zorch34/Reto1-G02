@@ -26,10 +26,10 @@ import csv
 from DISClib.Utils import error as error
 from DISClib.DataStructures import liststructure as lt
 
-
 """
 El controlador se encarga de mediar entre la vista y el modelo.
 """
+
 
 # Inicialización del Catálogo de libros
 def initCatalog(Tipo_Arreglo):
@@ -39,28 +39,30 @@ def initCatalog(Tipo_Arreglo):
 
 # Funciones para la carga de datos
 
-def loadData (catalog):
-    loadArtists (catalog)
-    loadArtworks (catalog)
+def loadData(catalog):
+    loadArtists(catalog)
+    loadArtworks(catalog)
 
-def loadArtists (catalog):
+
+def loadArtists(catalog):
     artistsfile = cf.data_dir + 'Artists-utf8-small.csv'
-    input_file = csv.DictReader(open(artistsfile,encoding='utf-8'))
+    input_file = csv.DictReader(open(artistsfile, encoding='utf-8'))
     for artist in input_file:
         model.addArtist(catalog, artist)
 
-def loadArtworks (catalog):
+
+def loadArtworks(catalog):
     artworksfile = cf.data_dir + 'Artworks-utf8-small.csv'
-    input_file = csv.DictReader(open(artworksfile,encoding='utf-8'))
+    input_file = csv.DictReader(open(artworksfile, encoding='utf-8'))
     for artworks in input_file:
         model.addArtworks(catalog, artworks)
 
+
 # Funciones de ordenamiento
 
-def AlgoritmoIterativo (Tipo_Algoritmo, catalog):
-    Algoritmo = model.AlgoritmoIterativo (Tipo_Algoritmo, catalog)
+def AlgoritmoIterativo(Tipo_Algoritmo, catalog):
+    Algoritmo = model.AlgoritmoIterativo(Tipo_Algoritmo, catalog)
     return Algoritmo
-
 
 
 # Funciones de consulta sobre el catálogo
@@ -69,3 +71,12 @@ def subList(lst, pos, numelem):
         return lt.subList(lst, pos, numelem)
     except Exception as exp:
         error.reraise(exp, 'List->subList: ')
+
+
+# Funciones listar cronologicamente
+def listarCronoArtistas(fecha_inicial, fecha_final, catalog):
+    return model.cronologicoArtistas(fecha_inicial, fecha_final, catalog)
+
+
+def listarCronoObras(fecha_inicial, fecha_final, catalog):
+    return model.cronologicoObras(fecha_inicial, fecha_final, catalog)

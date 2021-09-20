@@ -33,6 +33,8 @@ from DISClib.Algorithms.Sorting import shellsort as sa
 from DISClib.Algorithms.Sorting import insertionsort as ins
 from DISClib.Algorithms.Sorting import quicksort as qcks
 from DISClib.Algorithms.Sorting import mergesort as mrgs
+
+
 assert cf
 
 """
@@ -40,89 +42,57 @@ Se define la estructura de un catálogo de videos. El catálogo tendrá dos list
 los mismos.
 """
 
+
 # Construccion de modelos
 
 def newCatalog(Tipo_Arreglo):
-
-    catalog = {'artist': None,
-               'artworks': None,}
-
-    catalog['artist'] = lt.newList(Tipo_Arreglo)
-    catalog['artworks'] = lt.newList(Tipo_Arreglo)
-
+    catalog = {'artist': lt.newList(Tipo_Arreglo), 'artworks': lt.newList(Tipo_Arreglo)}
     return catalog
 
-# Funciones para agregar informacion al catalogo
 
-def addArtist (catalog, artist):
+# Funciones para agregar informacion al catalogo
+def addArtist(catalog, artist):
     art = newArtist(artist['ConstituentID'], artist['DisplayName'],
                     artist['ArtistBio'], artist['Nationality'],
                     artist['Gender'], artist['BeginDate'],
                     artist['EndDate'], artist['Wiki QID'], artist['ULAN'])
     lt.addLast(catalog['artist'], art)
 
-def addArtworks (catalog, artworks):
+
+def addArtworks(catalog, artworks):
     artw = newArtwork(artworks['ObjectID'], artworks['Title'], artworks['ConstituentID'],
-                    artworks['Date'], artworks['Medium'], artworks['Dimensions'],
-                    artworks['CreditLine'], artworks['AccessionNumber'], artworks['Classification'],
-                    artworks['Department'], artworks['DateAcquired'], artworks['Cataloged'],
-                    artworks['URL'], artworks['Circumference (cm)'], artworks['Depth (cm)'],
-                    artworks['Diameter (cm)'], artworks['Height (cm)'], artworks['Length (cm)'],
-                    artworks['Weight (kg)'], artworks['Width (cm)'], artworks['Seat Height (cm)'],
-                    artworks['Duration (sec.)'])
-    lt.addLast(catalog['artworks'], artw)	
+                      artworks['Date'], artworks['Medium'], artworks['Dimensions'],
+                      artworks['CreditLine'], artworks['AccessionNumber'], artworks['Classification'],
+                      artworks['Department'], artworks['DateAcquired'], artworks['Cataloged'],
+                      artworks['URL'], artworks['Circumference (cm)'], artworks['Depth (cm)'],
+                      artworks['Diameter (cm)'], artworks['Height (cm)'], artworks['Length (cm)'],
+                      artworks['Weight (kg)'], artworks['Width (cm)'], artworks['Seat Height (cm)'],
+                      artworks['Duration (sec.)'])
+    lt.addLast(catalog['artworks'], artw)
+
 
 # Funciones para creacion de datos
 
 def newArtist(ConstituentID, DisplayName, ArtistBio, Nationality, Gender, BeginDate, EndDate, WikiQID, ULAN):
-    artist = {'ConstituentID': '', 'DisplayName': '', 'ArtistBio': '',
-            'Nacionality': '', 'Gender': '', 'BeginDate': '',
-            'EndDate': '', 'WikiQID': '', 'ULAN': ''}
-    artist['ConstituentID'] = ConstituentID
-    artist['DisplayName'] = DisplayName
-    artist['ArtistBio'] = ArtistBio
-    artist['Nationality'] = Nationality
-    artist['Gender'] = Gender
-    artist['BeginDate'] = BeginDate
-    artist['EndDate'] = EndDate
-    artist['WikiQID'] = WikiQID
-    artist['ULAN'] = ULAN
-    
+    artist = {'ConstituentID': ConstituentID, 'DisplayName': DisplayName, 'ArtistBio': ArtistBio, 'Nacionality': '',
+              'Gender': Gender, 'BeginDate': BeginDate, 'EndDate': EndDate, 'WikiQID': WikiQID, 'ULAN': ULAN,
+              'Nationality': Nationality}
+
     return artist
 
-def newArtwork(ObjectID, Title, ConstituentID, Date, Medium, Dimensions, CreditLine, AccessionNumber, Classification,
-            Department, DateAcquired, Cataloged, URL, Circumference, Depth, Diameter, Height, Length, Weight, Width,
-            SeatHeight, Duration):
 
-    artworks = {'ObjectID': '', 'Title': '', 'ConstituentID': '', 'Date': '',
-                'Medium': '', 'Dimensions': '', 'CreditLine': '', 'AccessionNumber': '',
-                'Classification': '', 'Department': '', 'DateAcquired': '', 'Cataloged': '',
-                'URL': '', 'Circumference': '', 'Depth': '', 'Diameter': '', 'Height': '',
-                'Length': '', 'Weight': '', 'Width': '', 'SeatHeight': '', 'Duration': ''}
-    artworks['ObjectID'] = ObjectID
-    artworks['Title'] = Title
-    artworks['ConstituentID'] = ConstituentID
-    artworks['Date'] = Date
-    artworks['Medium'] = Medium
-    artworks['Dimensions'] = Dimensions
-    artworks['CreditLine'] = CreditLine
-    artworks['AccessionNumber'] = AccessionNumber
-    artworks['Classification'] = Classification
-    artworks['Department'] = Department
-    artworks['DateAcquired'] = DateAcquired
-    artworks['Cataloged'] = Cataloged
-    artworks['URL'] = URL
-    artworks['Circumference'] =  Circumference
-    artworks['Depth'] = Depth
-    artworks['Diameter'] = Diameter
-    artworks['Height'] = Height
-    artworks['Length'] = Length 
-    artworks['Weight'] = Weight
-    artworks['Width'] = Width
-    artworks['SeatHeight'] = SeatHeight
-    artworks['Duration'] = Duration
-    
-    return artworks
+def newArtwork(ObjectID, Title, ConstituentID, Date, Medium, Dimensions, CreditLine, AccessionNumber, Classification,
+               Department, DateAcquired, Cataloged, URL, Circumference, Depth, Diameter, Height, Length, Weight, Width,
+               SeatHeight, Duration):
+    artwork = {'ObjectID': ObjectID, 'Title': Title, 'ConstituentID': ConstituentID, 'Date': Date, 'Medium': Medium,
+               'Dimensions': Dimensions, 'CreditLine': CreditLine, 'AccessionNumber': AccessionNumber,
+               'Classification': Classification, 'Department': Department, 'DateAcquired': DateAcquired,
+               'Cataloged': Cataloged, 'URL': URL, 'Circumference': Circumference, 'Depth': Depth,
+               'Diameter': Diameter, 'Height': Height, 'Length': Length, 'Weight': Weight, 'Width': Width,
+               'SeatHeight': SeatHeight, 'Duration': Duration}
+
+    return artwork
+
 
 # Funciones de consulta
 
@@ -131,34 +101,68 @@ def cmpArtworkByDateAcquired(artwork1, artwork2):
     if artwork1["DateAcquired"] < artwork2["DateAcquired"]:
         r = True
     else:
-        r = False 
+        r = False
     return r
+
+
+def cmpArtistByBornDate(artist1, artist2):
+    if artist1["BeginDate"] < artist2["BeginDate"]:
+        r = True
+    else:
+        r = False
+    return r
+
+
+# Ordenar y clasificar artistas
+def cronologicoArtistas(fecha_inicial, fecha_final, catalog):
+    lista_ordenada = ins.sort(catalog['artist'], cmpArtistByBornDate)['elements']
+    lista_final = lt.newList()
+    for artista in lista_ordenada:
+        if fecha_final >= artista['BeginDate'] >= fecha_inicial:
+            lt.addLast(lista_final, artista)
+
+    return lista_final
+
+
+def cronologicoObras(fecha_inicial, fecha_final, catalog):
+    lista_ordenada = ins.sort(catalog['artworks'], cmpArtworkByDateAcquired)['elements']
+    lista_final = lt.newList()
+    cont = 0
+    for artwork in lista_ordenada:
+        if fecha_final >= artwork['DateAcquired'] >= fecha_inicial:
+            lt.addLast(lista_final, artwork)
+            if 'Purchase' in artwork['CreditLine'] or 'purchase' in artwork['CreditLine']:
+                cont += 1
+
+    return lista_final, cont
+
 
 # Funciones de ordenamiento
 
-def AlgoritmoIterativo (Tipo_Algoritmo, catalog):
+def AlgoritmoIterativo(Tipo_Algoritmo, catalog):
+    elapsed_time_mseg = 0
     if Tipo_Algoritmo == 'Insertion':
         start_time = time.process_time()
-        sorted_list = ins.sort(catalog['artworks'], cmpfunction=cmpArtworkByDateAcquired)
+        sorted_list = ins.sort(catalog['artworks'], cmpArtworkByDateAcquired)
         stop_time = time.process_time()
-        elapsed_time_mseg = (stop_time - start_time)*1000
+        elapsed_time_mseg = (stop_time - start_time) * 1000
 
     elif Tipo_Algoritmo == 'Shell':
         start_time = time.process_time()
-        sorted_list = sa.sort(catalog['artworks'], cmpfunction=cmpArtworkByDateAcquired)
+        sorted_list = sa.sort(catalog['artworks'], cmpArtworkByDateAcquired)
         stop_time = time.process_time()
-        elapsed_time_mseg = (stop_time - start_time)*1000
+        elapsed_time_mseg = (stop_time - start_time) * 1000
 
     elif Tipo_Algoritmo == 'Merge':
         start_time = time.process_time()
-        sorted_list = mrgs.sort(catalog['artworks'], cmpfunction=cmpArtworkByDateAcquired)
+        sorted_list = mrgs.sort(catalog['artworks'], cmpArtworkByDateAcquired)
         stop_time = time.process_time()
-        elapsed_time_mseg = (stop_time - start_time)*1000
+        elapsed_time_mseg = (stop_time - start_time) * 1000
 
     elif Tipo_Algoritmo == 'Quick Sorts':
         start_time = time.process_time()
-        sorted_list = qcks.sort(catalog['artworks'], cmpfunction=cmpArtworkByDateAcquired)
+        sorted_list = qcks.sort(catalog['artworks'], cmpArtworkByDateAcquired)
         stop_time = time.process_time()
-        elapsed_time_mseg = (stop_time - start_time)*1000
-    
+        elapsed_time_mseg = (stop_time - start_time) * 1000
+
     return elapsed_time_mseg
