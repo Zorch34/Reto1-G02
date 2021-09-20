@@ -25,16 +25,15 @@
  """
 
 
+from typing import BinaryIO
 import config as cf
+import time
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
 from DISClib.Algorithms.Sorting import insertionsort as ins
-from DISClib.Algorithms.Sorting import mergesort as mrgs
 from DISClib.Algorithms.Sorting import quicksort as qcks
-
+from DISClib.Algorithms.Sorting import mergesort as mrgs
 assert cf
-import time 
-
 
 """
 Se define la estructura de un catálogo de videos. El catálogo tendrá dos listas, una para los videos, otra para las categorias de
@@ -43,57 +42,100 @@ los mismos.
 
 # Construccion de modelos
 
-def newCatalog():
-   
-    catalog = {'artworks': None,
-               'artists': None,
-               }
+def newCatalog(Tipo_Arreglo):
 
-    catalog['artworks'] = lt.newList()
-    catalog['artists'] = lt.newList('SINGLE_LINKED',
-                                    cmpfunction=compareartists)
-    
+    catalog = {'artist': None,
+               'artworks': None,}
+
+    catalog['artist'] = lt.newList(Tipo_Arreglo)
+    catalog['artworks'] = lt.newList(Tipo_Arreglo)
+
     return catalog
 
 # Funciones para agregar informacion al catalogo
 
-def addartwork(catalog, artwork):
-    lt.addLast(catalog['artworks'], artwork)
-    artists = artwork['artists'].split(",")
-    for artist in artists:
-        addartworkartist(catalog, artist.strip(), artwork)
+def addArtist (catalog, artist):
+    art = newArtist(artist['ConstituentID'], artist['DisplayName'],
+                    artist['ArtistBio'], artist['Nationality'],
+                    artist['Gender'], artist['BeginDate'],
+                    artist['EndDate'], artist['Wiki QID'], artist['ULAN'])
+    lt.addLast(catalog['artist'], art)
 
-def addartworkartist(catalog, authorname, artwork):
-    artists = catalog['artists']
-    posartist = lt.isPresent(artists, authorname)
-    if posartist > 0:
-        artist = lt.getElement(artists, posartist)
-    else:
-        artist = newartist(authorname)
-        lt.addLast(artists, artist)
-    lt.addLast(artist['artworks'], artwork)
+def addArtworks (catalog, artworks):
+    artw = newArtwork(artworks['ObjectID'], artworks['Title'], artworks['ConstituentID'],
+                    artworks['Date'], artworks['Medium'], artworks['Dimensions'],
+                    artworks['CreditLine'], artworks['AccessionNumber'], artworks['Classification'],
+                    artworks['Department'], artworks['DateAcquired'], artworks['Cataloged'],
+                    artworks['URL'], artworks['Circumference (cm)'], artworks['Depth (cm)'],
+                    artworks['Diameter (cm)'], artworks['Height (cm)'], artworks['Length (cm)'],
+                    artworks['Weight (kg)'], artworks['Width (cm)'], artworks['Seat Height (cm)'],
+                    artworks['Duration (sec.)'])
+    lt.addLast(catalog['artworks'], artw)	
 
 # Funciones para creacion de datos
 
-def newartist(name):
-    artists = {'name': "", "artworks": None}
-    artists['name'] = name
-    artists['artworks'] = lt.newList('SINGLE_LINKED')
-    return artists
+def newArtist(ConstituentID, DisplayName, ArtistBio, Nationality, Gender, BeginDate, EndDate, WikiQID, ULAN):
+    artist = {'ConstituentID': '', 'DisplayName': '', 'ArtistBio': '',
+            'Nacionality': '', 'Gender': '', 'BeginDate': '',
+            'EndDate': '', 'WikiQID': '', 'ULAN': ''}
+    artist['ConstituentID'] = ConstituentID
+    artist['DisplayName'] = DisplayName
+    artist['ArtistBio'] = ArtistBio
+    artist['Nationality'] = Nationality
+    artist['Gender'] = Gender
+    artist['BeginDate'] = BeginDate
+    artist['EndDate'] = EndDate
+    artist['WikiQID'] = WikiQID
+    artist['ULAN'] = ULAN
+    
+    return artist
+
+def newArtwork(ObjectID, Title, ConstituentID, Date, Medium, Dimensions, CreditLine, AccessionNumber, Classification,
+            Department, DateAcquired, Cataloged, URL, Circumference, Depth, Diameter, Height, Length, Weight, Width,
+            SeatHeight, Duration):
+
+    artworks = {'ObjectID': '', 'Title': '', 'ConstituentID': '', 'Date': '',
+                'Medium': '', 'Dimensions': '', 'CreditLine': '', 'AccessionNumber': '',
+                'Classification': '', 'Department': '', 'DateAcquired': '', 'Cataloged': '',
+                'URL': '', 'Circumference': '', 'Depth': '', 'Diameter': '', 'Height': '',
+                'Length': '', 'Weight': '', 'Width': '', 'SeatHeight': '', 'Duration': ''}
+    artworks['ObjectID'] = ObjectID
+    artworks['Title'] = Title
+    artworks['ConstituentID'] = ConstituentID
+    artworks['Date'] = Date
+    artworks['Medium'] = Medium
+    artworks['Dimensions'] = Dimensions
+    artworks['CreditLine'] = CreditLine
+    artworks['AccessionNumber'] = AccessionNumber
+    artworks['Classification'] = Classification
+    artworks['Department'] = Department
+    artworks['DateAcquired'] = DateAcquired
+    artworks['Cataloged'] = Cataloged
+    artworks['URL'] = URL
+    artworks['Circumference'] =  Circumference
+    artworks['Depth'] = Depth
+    artworks['Diameter'] = Diameter
+    artworks['Height'] = Height
+    artworks['Length'] = Length 
+    artworks['Weight'] = Weight
+    artworks['Width'] = Width
+    artworks['SeatHeight'] = SeatHeight
+    artworks['Duration'] = Duration
+    
+    return artworks
+
 # Funciones de consulta
 
 # Funciones utilizadas para comparar elementos dentro de una lista
-def compareartists(authorname1, artists):
-    if (authorname1.lower() in artists['name'].lower()):
-        return 0
-    return -1
 def cmpArtworkByDateAcquired(artwork1, artwork2):
     if artwork1["DateAcquired"] < artwork2["DateAcquired"]:
         r = True
     else:
         r = False 
     return r
+
 # Funciones de ordenamiento
+
 def AlgoritmoIterativo (Tipo_Algoritmo, catalog):
     if Tipo_Algoritmo == 'Insertion':
         start_time = time.process_time()

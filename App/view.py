@@ -25,8 +25,6 @@ import sys
 import controller
 from DISClib.ADT import list as lt
 assert cf
-from controller import loadData
-from controller import initCatalog
 
 
 """
@@ -38,13 +36,21 @@ operación solicitada
 
 def printMenu():
     print("Bienvenido")
-    print("0- Cargar información en el catálogo")
-    print("1-Ejecutar requerimiento 1")
-    print("2-Ejecutar requerimiento 2")
-    print("3-Ejecutar requerimiento 3")
-    print("4-Ejecutar requerimiento 4")
-    print("5-Ejecutar requerimiento 5")
-    print("6-Ejecutar requerimiento 6")
+    print("1- Cargar información en el catálogo")
+    print("2- Seleccionar el tipo de algoritmo de ordenamiento iterativo")
+    print("3- Listar cronológicamente los artistas")
+    print("4- Listar cronológicamente las adquisiciones")
+    print("5- Clasificar las obras de un artista por técnica")
+    print("6- Clasificar las obras por la nacionalidad de sus creadores")
+    print("7- Transportar obras de un departamento")
+    print("8- Proponer una nueva exposición en el museo")
+    print("9- Salir del Menu")
+
+def initCatalog(Tipo_Arreglo):
+    return controller.initCatalog(Tipo_Arreglo)
+
+def loadData(catalog):
+    controller.loadData(catalog)
 
 catalog = None
 
@@ -54,24 +60,8 @@ Menu principal
 while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
-    if int(inputs[0]) == 0:
-        print("Cargando información de los archivos ....")
-    elif int(inputs[1]) == 1:
-        print("Ejecutando requerimiento 1 ...")
-    elif int(inputs[2]) == 2:
-        print("Ejecutando requerimiento 2 ...")
-    elif int(inputs[3]) == 3:
-        print("Ejecutando requerimiento 3 ...")
-    elif int(inputs[4]) == 4:
-        print("Ejecutando requerimiento 4 ...")
-    elif int(inputs[5]) == 5:
-        print("Ejecutando requerimiento 5 ...")
-    elif int(inputs[6]) == 6:
-        print("Ejecutando requerimiento 6 ...")
-    else:
-        sys.exit(0)
     if int(inputs[0]) == 1:
-        Tipo_Arreglo = input("Elige una opción ARRAY_LIST ó SINGLE_LINKED: ")
+        Tipo_Arreglo = input("Elige la opción ARRAY_LIST ó SINGLE_LINKED: ")
         print("Cargando información de los archivos ....")
         catalog = initCatalog (Tipo_Arreglo)
         loadData (catalog)
@@ -79,7 +69,40 @@ while True:
         print('Obras cargadas: ' + str(lt.size(catalog['artworks'])))
 
     elif int(inputs[0]) == 2:
-        Tipo_Algoritmo = input("Elige una  opción Insertion, Shell, Merge o Quick Sorts: ")
+        Tipo_Algoritmo = input("Elige la opción Insertion, Shell, Merge o Quick Sorts: ")
         ordenado = controller.AlgoritmoIterativo(Tipo_Algoritmo, catalog)
         print("Para el catálogo con el tipo de ordenamiento:", Tipo_Algoritmo, "el tiempo de procesamiento es:", ordenado, "mseg")
-sys.exit(0)
+
+    elif int(inputs[0]) == 3:
+        A_I = input ("Ingresa el año inicial: ")
+        A_FN = input ("Ingresa el año final: ")
+        print("Lista cronologica de artistas: ")
+
+    elif int(inputs[0]) == 4:
+        F_I = input ("Ingresa la fecha inicial (AAAA-MM-DD): ")
+        F_FN = input ("Ingresa la fecha final (AAAA-MM-DD): ")
+        print("Lista cronologica de adquisiciones: ")
+
+    elif int(inputs[0]) == 5:
+        Name = input ("Ingresa el nombre del artista: ")
+        print("Obras de un artista por técnica: ")
+
+    elif int(inputs[0]) == 6:
+        print("Obras por la nacionalidad de sus creadores: ")
+
+    elif int(inputs[0]) == 7:
+        DEP = input("Ingresa el departamento a consultar: ")
+        print("Costo de transporte: ")
+
+    elif int(inputs[0]) == 8:
+        A_IO = input("Ingresa el año inicial de las obras: ")
+        A_FO = input("Ingresa el año final de las obras: ")
+        Area_D = input("Ingresa el área disponible: ")
+        print("Propuesta de una nueva exposición:  ")
+
+    else:
+        sys.exit(9)
+sys.exit(8)
+
+
+

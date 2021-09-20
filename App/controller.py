@@ -23,8 +23,8 @@
 import config as cf
 import model
 import csv
-from DISClib.ADT import list as lt
-
+from DISClib.Utils import error as error
+from DISClib.DataStructures import liststructure as lt
 
 
 """
@@ -32,30 +32,31 @@ El controlador se encarga de mediar entre la vista y el modelo.
 """
 
 # Inicialización del Catálogo de libros
-def initCatalog():
-    catalog = model.newCatalog()
+def initCatalog(Tipo_Arreglo):
+    catalog = model.newCatalog(Tipo_Arreglo)
     return catalog
 
+
 # Funciones para la carga de datos
-def loadData(catalog):
-    loadartworks(catalog)
-    loadartists(catalog)
 
+def loadData (catalog):
+    loadArtists (catalog)
+    loadArtworks (catalog)
 
-def loadartworks(catalog):
-    artworksfile = cf.data_dir + 'Artworks-utf8-large.csv'
-    input_file = csv.DictReader(open(artworksfile, encoding='utf-8'))
-    for artwork in input_file:
-        model.addartwork(catalog, artwork)
-
-
-def loadartists(catalog):
-    artistsfile = cf.data_dir + 'Artists-utf8-large.csv'
-    input_file = csv.DictReader(open(artistsfile, encoding='utf-8'))
+def loadArtists (catalog):
+    artistsfile = cf.data_dir + 'Artists-utf8-small.csv'
+    input_file = csv.DictReader(open(artistsfile,encoding='utf-8'))
     for artist in input_file:
-        model.addartworkartist(catalog, artist)
+        model.addArtist(catalog, artist)
+
+def loadArtworks (catalog):
+    artworksfile = cf.data_dir + 'Artworks-utf8-small.csv'
+    input_file = csv.DictReader(open(artworksfile,encoding='utf-8'))
+    for artworks in input_file:
+        model.addArtworks(catalog, artworks)
 
 # Funciones de ordenamiento
+
 def AlgoritmoIterativo (Tipo_Algoritmo, catalog):
     Algoritmo = model.AlgoritmoIterativo (Tipo_Algoritmo, catalog)
     return Algoritmo
@@ -68,5 +69,3 @@ def subList(lst, pos, numelem):
         return lt.subList(lst, pos, numelem)
     except Exception as exp:
         error.reraise(exp, 'List->subList: ')
-
-# Funciones de consulta sobre el catálogo
