@@ -25,6 +25,8 @@ import sys
 import controller
 from DISClib.ADT import list as lt
 assert cf
+from controller import loadData
+from controller import initCatalog
 
 
 """
@@ -68,4 +70,16 @@ while True:
         print("Ejecutando requerimiento 6 ...")
     else:
         sys.exit(0)
+    if int(inputs[0]) == 1:
+        Tipo_Arreglo = input("Elige una opción ARRAY_LIST ó SINGLE_LINKED: ")
+        print("Cargando información de los archivos ....")
+        catalog = initCatalog (Tipo_Arreglo)
+        loadData (catalog)
+        print('Artistas cargados: ' + str(lt.size(catalog['artist'])))
+        print('Obras cargadas: ' + str(lt.size(catalog['artworks'])))
+
+    elif int(inputs[0]) == 2:
+        Tipo_Algoritmo = input("Elige una  opción Insertion, Shell, Merge o Quick Sorts: ")
+        ordenado = controller.AlgoritmoIterativo(Tipo_Algoritmo, catalog)
+        print("Para el catálogo con el tipo de ordenamiento:", Tipo_Algoritmo, "el tiempo de procesamiento es:", ordenado, "mseg")
 sys.exit(0)

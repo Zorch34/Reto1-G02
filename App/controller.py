@@ -23,6 +23,8 @@
 import config as cf
 import model
 import csv
+from DISClib.ADT import list as lt
+
 
 
 """
@@ -54,5 +56,17 @@ def loadartists(catalog):
         model.addartworkartist(catalog, artist)
 
 # Funciones de ordenamiento
+def AlgoritmoIterativo (Tipo_Algoritmo, catalog):
+    Algoritmo = model.AlgoritmoIterativo (Tipo_Algoritmo, catalog)
+    return Algoritmo
+
+
+
+# Funciones de consulta sobre el catálogo
+def subList(lst, pos, numelem):
+    try:
+        return lt.subList(lst, pos, numelem)
+    except Exception as exp:
+        error.reraise(exp, 'List->subList: ')
 
 # Funciones de consulta sobre el catálogo
